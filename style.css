@@ -1,0 +1,66 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #000; /* Dark background for contrast */
+    color: #fff; /* White text for readability */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100vh;
+    padding: 20px;
+}
+
+h1 {
+    color: rgb(247, 41, 41);
+    margin: 1rem 0;
+}
+
+h3 {
+    font-size: xx-large;
+    margin: 1rem 0;
+}
+
+.timer-display {
+    font-size: 4rem;
+    margin: 2rem 0;
+}
+
+.settings, .controls {
+    display: flex;
+    gap: 15px;
+    margin: 1rem 0;
+}
+
+.settings input, .controls button {
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid rgb(247, 41, 41);
+    background: transparent;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.controls button:hover {
+    background: rgb(247, 41, 41);
+    color: #000;
+    transition: all 0.3s ease;
+}
+
+#progress-bar-container {
+    width: 100%;
+    background-color: #444;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+#progress-bar {
+    height: 20px;
+    background-color: rgb(41, 247, 65);
+    width: 0%;
+}
