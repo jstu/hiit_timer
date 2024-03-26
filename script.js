@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const titleLabel = document.getElementById('title');
-    const roundsLabel = document.getElementById('rounds');
+    const titleLabel = document.getElementById('round-notification');
+    const roundsLabel = document.getElementById('round-indicator');
     const startButton = document.getElementById('start-btn');
     const activeTimeInput = document.getElementById('active-time');
     const restTimeInput = document.getElementById('rest-time');
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTimerText(time);
 
             if (time <= 3 && time > 0) {
-                anticipationSound.play();
+                //anticipationSound.play();
                 let anticipationTitle = currentTimer === 'active' ? "Almost there!" : "Prepare for round " + (1 + getCurrentRound()) + "!";
                 setTitle(anticipationTitle)
             }
@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (currentTimer === 'active') {
                     startTimer(restSecondsTotal, 'rest');
                 } else if (getCurrentRound() < totalCycles) {
+                    currentCycle++;
                     startTimer(activeSecondsTotal, 'active');
                 } else {
                     resetTimer(); // Automatically reset when all cycles are complete
@@ -58,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getCurrentRound() {
-        return currentCycle + 1;
+        return (currentCycle + 1);
     }   
 
     function getEndSound() {
@@ -72,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function setRounds() {
-        roundsLabel.text = "Round " + getCurrentRound();
+        roundsLabel.textContent = "Round " + getCurrentRound();
     }
 
     function setTitle(title) {
