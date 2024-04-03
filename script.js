@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let time = duration;
         currentTimer = type;
         setTitle(type === 'active' ? "Go!" : "Rest");
-        setRounds();
+        setRounds(type);
 
         countdown = setInterval(() => {
             const timeFraction = (time / duration) * 100;
@@ -38,14 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTimerText(time);
 
             if (time <= 3 && time > 0) {
-                //anticipationSound.play();
+                anticipationSound.play();
                 let anticipationTitle = currentTimer === 'active' ? "Almost there!" : "Prepare for round " + (1 + getCurrentRound()) + "!";
                 setTitle(anticipationTitle)
             }
             if (time <= 0) {
                 clearInterval(countdown);
                 getEndSound().play();
-                if (currentTimer === 'active') {
+                if (currentTimer === 'prepare') {
+                    startTimer(activeSecondsTotal, 'active');
+                } else if (currentTimer === 'active') {
                     startTimer(restSecondsTotal, 'rest');
                 } else if (getCurrentRound() < totalCycles) {
                     currentCycle++;
@@ -72,8 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return endSound1;
     }
 
-    function setRounds() {
-        roundsLabel.textContent = "Round " + getCurrentRound();
+    function setRounds(type) {
+        roundsLabel.textContent = type === 'active' ? "Round " + getCurrentRound() : "Prepare";
     }
 
     function setTitle(title) {
@@ -118,8 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (startButton.textContent === 'Start') {
             startButton.textContent = 'Pause';
             parseInputTimes();
-            startTimer(activeSecondsTotal, 'active');
-            getEndSound().play();
+            startTimer(10, 'prepare');
         } else {
             pauseTimer();
         }
