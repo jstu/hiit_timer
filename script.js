@@ -10,10 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const endSound2 = document.getElementById('end-sound2');
     const endSound3 = document.getElementById('end-sound3');
     const anticipationSound = document.getElementById('anticipation-sound');
+    const halfwaySound = document.getElementById('halfwaySound');
+    const thirtySecondSound = document.getElementById('thirtySecondSound');
+    const thirtySecondCheckbox = document.getElementById('thirtySecondCheckbox');
 
     let activeSecondsTotal, restSecondsTotal;
     let currentTimer; // Holds the current timer (active/rest)
     let countdown; // The countdown interval
+    var colorGreen = "rgb(41, 247, 65)";
+    var colorOrange = "rgb(247, 178, 41)";
     
     // Additional element references
     const resetButton = document.getElementById('reset-btn');
@@ -36,6 +41,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const timeFraction = (time / duration) * 100;
             updateProgressBar(timeFraction);
             updateTimerText(time);
+
+            // Play halfway sound
+            if (time === Math.floor(activeSecondsTotal / 2)) {
+                halfwaySound.play();
+            }
+
+            // Play 30-second mark sound if checkbox is checked
+            if (type === 'active' && time === 30 && thirtySecondCheckbox.checked) {
+                thirtySecondSound.play();
+            }
 
             if (time <= 3 && time > 0) {
                 anticipationSound.play();
@@ -93,9 +108,9 @@ document.addEventListener('DOMContentLoaded', () => {
         progressBar.style.width = fraction + '%';
         console.log("currentTimer: " + currentTimer);
         if (currentTimer === 'active') {
-            progressBar.style.backgroundColor = "rgb(41, 247, 65)";
+            progressBar.style.backgroundColor = colorGreen
         } else {
-            progressBar.style.backgroundColor = "rgb(247, 178, 41)";
+            progressBar.style.backgroundColor = colorOrange
         }
     }
 
