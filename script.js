@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Play 30-second mark sound if checkbox is checked
             if (type === 'active' && time === 30 && thirtySecondCheckbox.checked) {
+                thirtySecondSound.volume = 0.4;
                 thirtySecondSound.play();
             }
 
