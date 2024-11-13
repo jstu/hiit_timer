@@ -43,7 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTimerText(time);
 
             // Play halfway sound
-            if (time === Math.floor(activeSecondsTotal / 2)) {
+            let playThirtySecondSound = thirtySecondCheckbox.checked;
+            let halfwayPoint;
+
+            if (playThirtySecondSound) {
+                halfwayPoint = Math.floor((activeSecondsTotal + 30) / 2);
+            } else {
+                halfwayPoint = Math.floor(activeSecondsTotal / 2);
+            }
+            let isHalfTime = time === halfwayPoint
+
+            if (isHalfTime) {
                 halfwaySound.play();
             }
 
