@@ -13,15 +13,18 @@
             <span id="timer-minutes">00</span>:<span id="timer-seconds">00</span>
         </div>
         <div class="settings">
-            <input type="text" id="active-time" value="00:10">
-            <input type="text" id="rest-time" value="00:10">
-            <input type="number" id="cycles" value="3" min="1">
+            <input type="text" id="active-time" value="04:00">
+            <input type="text" id="rest-time" value="01:00">
+            <input type="number" id="cycles" value="10" min="1">
         </div>
 
         <div class="controls">
             <button id="start-btn">Start</button>
             <button id="reset-btn">Reset</button>
-            <input type="checkbox" id="thirtySecondCheckbox" checked/>
+            <div class="checkboxes">
+                <input type="checkbox" id="thirtySecondCheckbox" checked>Burn</input>
+                <input type="checkbox" id="jumpCheckbox" checked/>Jump</input>
+            </div>
         </div>
         <div class="round-indicator" id="round-indicator">Round 1</div>
         <div id="progress-bar-container">
@@ -34,6 +37,7 @@
     <audio id="anticipation-sound" src="select_denied.mp3" preload="auto"></audio>
     <audio id="halfwaySound" src="ding_arcade.mp3"></audio>
     <audio id="thirtySecondSound" src="fog_horn.mp3"></audio>
+    <audio id="jumpSound" src="mario.mp3"></audio>
     <script src="script.js"></script>
 </body>
 </html>

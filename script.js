@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const halfwaySound = document.getElementById('halfwaySound');
     const thirtySecondSound = document.getElementById('thirtySecondSound');
     const thirtySecondCheckbox = document.getElementById('thirtySecondCheckbox');
+    const jumpSound = document.getElementById('jumpSound');
+    const jumpCheckbox = document.getElementById('jumpCheckbox');
 
     let activeSecondsTotal, restSecondsTotal;
     let currentTimer; // Holds the current timer (active/rest)
@@ -28,6 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentCycle = 0;
     let totalCycles;
 
+    const burnTime = 30; 
+    const jumpChance = 0.05; // chance to play jump sound
+    const jumpCooldownTotal = 5; // seconds between jump sounds
+    const jumpSafety = 15; // seconds after start
+
     resetButton.addEventListener('click', resetTimer);
 
     function startTimer(duration, type) {
@@ -36,6 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
         currentTimer = type;
         setTitle(type === 'active' ? "Go!" : "Rest");
         setRounds(type);
+
+        let jumpCooldown = 0;
 
         countdown = setInterval(() => {
             const timeFraction = (time / duration) * 100;
@@ -58,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Play 30-second mark sound if checkbox is checked
-            if (type === 'active' && time === 30 && thirtySecondCheckbox.checked) {
+            if (type === 'active' && time === burnTime && thirtySecondCheckbox.checked) {
                 thirtySecondSound.volume = 0.4;
                 thirtySecondSound.play();
             }
@@ -68,6 +77,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 let anticipationTitle = currentTimer === 'active' ? "Almost there!" : "Prepare for round " + (1 + getCurrentRound()) + "!";
                 setTitle(anticipationTitle)
             }
+
+            if (type === 'active' && jumpCheckbox.checked) {
+                if (jumpCooldown > 0) {
+                    jumpCooldown--;
+                } else if (time <= activeSecondsTotal - jumpSafety && time > burnTime) {
+                    if (Math.random() < jumpChance) {
+                        jumpSound.volume = 0.6;
+                        jumpSound.play();
+                        jumpCooldown = jumpCooldownTotal;
+                    }
+                }
+            }
+
             if (time <= 0) {
                 clearInterval(countdown);
                 getEndSound().play();
